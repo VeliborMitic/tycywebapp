@@ -8,8 +8,6 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import nastycraft.dao.RanksOptionsRepository;
-import nastycraft.dao.RanksRepository;
-import nastycraft.model.Ranks;
 import nastycraft.model.RanksOptions;
 
 

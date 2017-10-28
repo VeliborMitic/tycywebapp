@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 
 import nastycraft.dao.VotingRepository;
-import nastycraft.model.Ranks;
 import nastycraft.model.Voting;
 
 

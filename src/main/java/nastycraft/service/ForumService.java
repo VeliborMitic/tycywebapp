@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
-
 import nastycraft.dao.ForumRepository;
-import nastycraft.dao.TaskRepository;
 import nastycraft.model.Forum;
-import nastycraft.model.Task;
+
 
 @Service
 @Transactional

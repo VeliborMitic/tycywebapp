@@ -6,15 +6,10 @@ import java.util.List;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
-
-import nastycraft.dao.ForumRepository;
 import nastycraft.dao.NewsletterRepository;
-import nastycraft.dao.TaskRepository;
-import nastycraft.model.Forum;
 import nastycraft.model.Newsletter;
-import nastycraft.model.Task;
+
 
 @Service
 @Transactional

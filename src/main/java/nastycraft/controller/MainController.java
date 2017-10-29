@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import nastycraft.model.Newsletter;
 import nastycraft.service.ForumService;
+import nastycraft.service.HashsessionService;
 import nastycraft.service.NewsletterService;
 import nastycraft.service.RanksOptionsService;
 import nastycraft.service.RanksService;
 import nastycraft.service.VotingService;
 
 @Controller
-public class MainController {
+public class MainController{
 
 	@Autowired
 	private RanksService ranksService;
@@ -36,18 +37,34 @@ public class MainController {
 	@Autowired
 	private NewsletterService newsletterService;
 
+	@Autowired
+	private HashsessionService hashsessionservice;
+	
+
 	
 	@GetMapping("/admincp")
 	public String admincp(HttpServletRequest request, HttpSession session) {
-		return "/admincp";
+		
+		if(hashsessionservice.verifyLogIn(session,request)){
+			return "/admincp";
+		}else {
+			return "redirect:" + "/errorlogin";
+		}
+		
 	}
+	
+	@GetMapping("/errorlogin")
+	public String errorlogin() {
+		return "/errorlogin";
+	}
+	
 
 	@GetMapping("/")
 	public String homeIndex(HttpServletRequest request) {
 		request.setAttribute("linkk", forumService.findAll());
 		request.setAttribute("mode", "HOME_INDEX");
 		request.setAttribute("display", "HOME");
-		return "/nastycraft";
+		return "index";
 	}
 
 	@GetMapping("/donations")
@@ -57,7 +74,7 @@ public class MainController {
 		request.setAttribute("ranksOptionsList", ranksOptionsService.findAll());
 		request.setAttribute("mode", "HOME_INDEX");
 		request.setAttribute("display", "DONATIONS");
-		return "/nastycraft";
+		return "index";
 	}
 
 	@GetMapping("/voting")
@@ -66,7 +83,7 @@ public class MainController {
 		request.setAttribute("votingList", votingService.findAll());
 		request.setAttribute("mode", "HOME_INDEX");
 		request.setAttribute("display", "VOTING");
-		return "/nastycraft";
+		return "index";
 	}
 
 	// newsletter messages
@@ -96,5 +113,7 @@ public class MainController {
 
 		return "redirect:" + "/";
 	}
+
+
 
 }

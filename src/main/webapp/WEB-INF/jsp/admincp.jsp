@@ -7,15 +7,7 @@
 <jsp:include page="header.jsp" />
 
 <body class="body-custom">
-	<%
-		Object loggedIn = session.getAttribute("loggedIn");
-		Object loginsession = session.getAttribute("loginsession");
-	%>
-	<c:choose>
 	
-		
-	<c:when test="${loggedIn eq true}">
-		
            <jsp:include page="navbarcms.jsp" />
            
 					<hr>
@@ -24,7 +16,7 @@
 					</div>
 
 
-				</c:when></c:choose>
+
 				</body>
 				</html>
 			

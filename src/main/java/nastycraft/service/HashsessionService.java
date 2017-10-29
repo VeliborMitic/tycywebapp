@@ -4,6 +4,8 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,22 @@ public class HashsessionService {
 		}
 		
 		
+		public boolean verifyLogIn(HttpSession session,HttpServletRequest request) {
+			
+			String sessionAttribute = (String) session.getAttribute("loginsession");
+			String nameFromSession = (String) session.getAttribute("username");
+			String ip = getIp(request);
+			
+			if(sessionAttribute == null) {
+				return false;
+			}
+			else if(!sessionAttribute.equals(returnHashByName(nameFromSession)) && !ip.equals(returnIpByName(nameFromSession))){
+				return false;
+			}else {
+				return true;
+			}
+		}
+		
 		
 		public String hashString() {
 			String model = "abc!@defg#$hij^klm1n2u3q4r5s6t&*u789v(x)w[0]x?z";
@@ -64,27 +82,46 @@ public class HashsessionService {
 		}
 		
 		
-		public String returnHashByName(String name) {
-			List<Hashsession> hashsession = findAll();
-			String returnHash = "";
-			
-			for(int i=0;i<hashsession.size();i++) {
-				if(hashsession.get(i).getUsername().equals(name)) {
-					returnHash =  hashsession.get(i).getHashsession();
-				}
+		
+		public String returnName(String name) {	
+			String returnName = "";
+			try {
+				returnName = hashsessionrepository.findByName(name).getUsername();
+			}catch(Exception e) {
+				
 			}
+			return returnName;
+		}
+		
+		
+		public String returnIpByName(String name) {	
+			return hashsessionrepository.findByName(name).getIp();
+		}
+		
+		
+		
+		public String returnHashByName(String name) {	
+		Hashsession hashSessionName = hashsessionrepository.findByName(name);
+		String returnHash = hashSessionName.getHashsession();
 			return returnHash;
 		}
 		
+		
 		public void deleteHashSessionByName(String name) {
-			
-			List<Hashsession> hashsession = findAll();
-			
-			for(int i = 0;i < hashsession.size();i++) {
-				if(hashsession.get(i).getUsername().equals(name)) {
-					hashsessionrepository.delete(hashsession.get(i).getId());
-				}
-			}
+			Hashsession hashSessionName = hashsessionrepository.findByName(name);
+			hashsessionrepository.delete(hashSessionName.getId());
 		}
 		
+		
+		
+		public String getIp(HttpServletRequest request) {
+			String remoteAddr = "";
+			if (request != null) {
+				remoteAddr = request.getHeader("X-FORWARDED-FOR");
+				if (remoteAddr == null || "".equals(remoteAddr)) {
+					remoteAddr = request.getRemoteAddr();
+				}
+			}
+			return remoteAddr;
+		}
 }

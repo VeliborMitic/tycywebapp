@@ -1,6 +1,7 @@
 package nastycraft.controller;
  
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import nastycraft.model.RanksOptions;
+import nastycraft.service.HashsessionService;
 import nastycraft.service.RanksOptionsService;
 
 
@@ -20,23 +22,36 @@ public class RanksOptionController {
 	
 
 	 @Autowired
-	    private RanksOptionsService ranksOptionsService;
+	 private RanksOptionsService ranksOptionsService;
+	 
+	 @Autowired
+	 private HashsessionService hashsessionservice;
 	
 	 //ranks option methods
      @GetMapping("/newrankoption")
-     public String newRankOption(HttpServletRequest request) {
+     public String newRankOption(HttpServletRequest request,HttpSession session) {
+    	 if(hashsessionservice.verifyLogIn(session,request)){
          return "/newrankoption";
+         
+    	 }else {
+ 			return "redirect:" + "/errorlogin";
+ 		}
      }
      
      @GetMapping("/rankoptioncp")
-     public String rankoptioncp(HttpServletRequest request) {
+     public String rankoptioncp(HttpServletRequest request,HttpSession session) {
+    	 if(hashsessionservice.verifyLogIn(session,request)){
    	  request.setAttribute("ranksOptionsList", ranksOptionsService.findAll()); 
          return "/rankoptioncp";
+         
+    	 }else {
+ 			return "redirect:" + "/errorlogin";
+ 		}
      }
      
      @PostMapping("/saveranksoption")
-     public String saveRanksOption(@ModelAttribute RanksOptions rankOption,BindingResult bindingResult,HttpServletRequest request,RedirectAttributes attributes){
-        
+     public String saveRanksOption(@ModelAttribute RanksOptions rankOption,BindingResult bindingResult,HttpServletRequest request,RedirectAttributes attributes,HttpSession session){
+    	 if(hashsessionservice.verifyLogIn(session,request)){ 
    	  if(rankOption.getHelper() == null) {
    		  rankOption.setHelper("red");
    	  }
@@ -56,23 +71,37 @@ public class RanksOptionController {
    	request.setAttribute("ranksOptionsList", ranksOptionsService.findAll());
 
        return "redirect:" + "/rankoptioncp";
+       
+    	 }else {
+ 			return "redirect:" + "/errorlogin";
+ 		}
      }
      
      @GetMapping("/updaterankoption")
-     public String updateRanksOption(@RequestParam int id,HttpServletRequest request,RedirectAttributes attributes){
-         request.setAttribute("rankOptionsup", ranksOptionsService.findOneRank(id));       
+     public String updateRanksOption(@RequestParam int id,HttpServletRequest request,RedirectAttributes attributes,HttpSession session){
+    	 if(hashsessionservice.verifyLogIn(session,request)){
+    	 request.setAttribute("rankOptionsup", ranksOptionsService.findOneRank(id));       
          
          attributes.addFlashAttribute("addedr", true);
-         return "redirect:" + "/newrankoption";
+         return "/newrankoption";
+         
+    	 }else {
+ 			return "redirect:" + "/errorlogin";
+ 		}
      }
      
      @GetMapping("/deleterankoption")
-     public String deleteRanksOptions(@RequestParam int id,HttpServletRequest request,RedirectAttributes attributes){
-         ranksOptionsService.deleteRankOption(id);
+     public String deleteRanksOptions(@RequestParam int id,HttpServletRequest request,RedirectAttributes attributes,HttpSession session){
+    	 if(hashsessionservice.verifyLogIn(session,request)){
+    	 ranksOptionsService.deleteRankOption(id);
          request.setAttribute("ranksOptionsList", ranksOptionsService.findAll());
          
          attributes.addFlashAttribute("deletedr", true);
          return "redirect:" + "/rankoptioncp";
+         
+    	 }else {
+ 			return "redirect:" + "/errorlogin";
+ 		}
      }
     
 }

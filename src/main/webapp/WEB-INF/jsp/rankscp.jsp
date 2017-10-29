@@ -7,12 +7,7 @@
 <jsp:include page="header.jsp" />
 
 <body class="body-custom">
-	<%
-		Object loggedIn = session.getAttribute("loggedIn");
-	%>
-	<c:choose>
 
-		<c:when test="${loggedIn eq true}">
 			<jsp:include page="navbarcms.jsp" />
 
 
@@ -87,9 +82,5 @@
 			</div>
 
 
-
-
-		</c:when>
-	</c:choose>
 </body>
 </html>

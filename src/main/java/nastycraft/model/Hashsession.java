@@ -1,8 +1,6 @@
 package nastycraft.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,12 +14,14 @@ public class Hashsession implements Serializable{
 	private int id;
 	private String username;
 	private String hashsession;
+	private String ip;
 	
 	public Hashsession() {}
-	
-	public Hashsession(String username, String hashsession) {
+
+	public Hashsession(String username, String hashsession, String ip) {
 		this.username = username;
 		this.hashsession = hashsession;
+		this.ip = ip;
 	}
 
 	public int getId() {
@@ -48,14 +48,15 @@ public class Hashsession implements Serializable{
 		this.hashsession = hashsession;
 	}
 
-	@Override
-	public String toString() {
-		return "Hashsession [id=" + id + ", username=" + username + ", hashsession=" + hashsession + "]";
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	
+
 	
 	
-	
-	
-	}
-	
+}

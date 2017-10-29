@@ -47,12 +47,11 @@ public class UserService {
 		
 		boolean detailsMatch = false;
 		
-		List<Users> users = findAllUsers();
+
+		Users user = usersRepository.findByUser(name);
 		
-		for(int i = 0; i < users.size();i++) {
-			if(users.get(i).getUser().equals(name) && users.get(i).getPassword().equalsIgnoreCase(passHash)) {
-				detailsMatch = true;
-			}
+		if(user.getPassword().equalsIgnoreCase(passHash)) {
+			detailsMatch = true;
 		}
 		
 		return detailsMatch;

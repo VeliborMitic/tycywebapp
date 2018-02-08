@@ -22,7 +22,7 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="static/css/nastycraft.css" rel="stylesheet" media="screen">
+<link href="static/css/nastycraft.css" rel="stylesheet" media="screen" type="text/css">
 <link href="static/css/checkbox.css" rel="stylesheet" media="screen">
 <link href="static/css/carousel.css" rel="stylesheet" media="screen">
 
@@ -46,7 +46,7 @@
 					class="img-responsive center-block" />
 
 				<!-- Menu -->
-			<div>
+
 				<section class="ccblue">
 					<div class="mainmenu">
 						<form action="savenewsletter" method="POST">
@@ -72,7 +72,7 @@
 								<span class="glyphicon glyphicon-envelope"></span>
 								</button></span>
 
-							<ul class="pull-right" style="overflow-x: hidden;">
+							<ul  class="pull-right" style="overflow-x: hidden;">
 								<li class="menuli"><a href="/" class="nounderline"><i
 										class="icon-facebook icon-large"></i> <main>Follow us</main><span>nasticraft</span></a></li>
 								<li class="menuli"><a href="/" class="nounderline"><i
@@ -137,7 +137,7 @@
         				 
         				     <div class="update-nag">
             					<div class="update-split update-info"><i class="glyphicon glyphicon-user"></i></div>
-           						 <div class="update-text">Users online : <a href="#">0</a> </div>
+           						 <div class="update-text">Users online : <a href="#">${onlineusers}</a> </div>
          					 </div>
          					 
          					 <div class="update-nag">
@@ -177,13 +177,41 @@
                     
                 </div>
             </div>
-           
-           
-            
         </div>
- </div>
+           
+          
+           <div class="bg-light content" style="padding:10px;">
+     	
+     	<div class="row" style=" height:30px; line-height: 30px;">
+  			<div class="col-sm-8 bigfontsizebold">Announce Title</div>
+  			<div class="col-sm-4 text-right"><span class="glyphicon glyphicon-pushpin" style="font-size:13px;"></span> Type of the announce</div>
+	   </div>	
 
+		        <div class="alert alert-warning"> 
+		        fweffwf<br>
+		         fweffwf<br>
+		          fweffwf<br>
+		           fweffwf<br>
+		            fweffwf<br>
+		             fweffwf<br>
+		              fweffwf<br>
+		               fweffwf<br>
+		                fweffwf<br>
+		                 fweffwf<br>
+		                  fweffwf<br>
+		        </div>
+        	
+        		<div>
+  			<a href="#" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-eye-open"></span> Read More</a>
+	  			 </div>
+	   
+	   
+      </div>
+             
+             
+        </div>
 					</c:when>
+					
 					<c:when test="${display == 'DONATIONS'}">
 						<table class="gocenter text-center" width="1200" border="0">
 							<tr>

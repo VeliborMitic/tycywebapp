@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import nastycraft.model.Newsletter;
+import nastycraft.query.MCQuery;
+import nastycraft.query.QueryResponse;
 import nastycraft.service.ForumService;
 import nastycraft.service.HashsessionService;
 import nastycraft.service.NewsletterService;
+import nastycraft.service.QueryService;
 import nastycraft.service.RanksOptionsService;
 import nastycraft.service.RanksService;
 import nastycraft.service.VotingService;
@@ -39,8 +42,10 @@ public class MainController{
 
 	@Autowired
 	private HashsessionService hashsessionservice;
-	
 
+
+	
+	
 	
 	@GetMapping("/admincp")
 	public String admincp(HttpServletRequest request, HttpSession session) {
@@ -63,6 +68,7 @@ public class MainController{
 	public String homeIndex(HttpServletRequest request) {
 		request.setAttribute("linkk", forumService.findAll());
 		request.setAttribute("mode", "HOME_INDEX");
+		request.setAttribute("onlineusers",  newsletterService.returnPlayers());
 		request.setAttribute("display", "HOME");
 		return "index";
 	}

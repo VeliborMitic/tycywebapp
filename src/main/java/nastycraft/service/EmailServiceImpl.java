@@ -8,6 +8,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import nastycraft.query.MCQuery;
+import nastycraft.query.QueryResponse;
+
 @Service
 @Transactional
 @Component
@@ -42,6 +45,8 @@ public class EmailServiceImpl{
 
     }
 
+	
+	
 	public void sendEmails() {
 		for(int i = 0; i < newsletterService.findAll().size();i++) {
 			sendSimpleMessage(newsletterService.findAll().get(i).getEmail(), this.subject, this.textarea);

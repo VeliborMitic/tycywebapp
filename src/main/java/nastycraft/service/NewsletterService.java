@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import nastycraft.dao.NewsletterRepository;
 import nastycraft.model.Newsletter;
+import nastycraft.query.MCQuery;
+import nastycraft.query.QueryResponse;
 
 
 @Service
@@ -23,6 +25,12 @@ public class NewsletterService {
 			this.newsletterRepository = newsletterRepository;
 		}
 
+		public int returnPlayers() {
+			MCQuery mcQuery = new MCQuery("91.134.50.184", 25565);
+			QueryResponse response = mcQuery.basicStat();
+			return response.getOnlinePlayers();
+		}
+		
 		public List<Newsletter> findAll(){
 			List<Newsletter> emailsList = new ArrayList<>();
 			for(Newsletter email : newsletterRepository.findAll()) {

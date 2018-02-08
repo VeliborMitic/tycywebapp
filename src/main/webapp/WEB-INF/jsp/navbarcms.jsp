@@ -8,13 +8,13 @@
 						<a class="navbar-brand" href="#">Welcome ${username}</a>
 					</div>
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="/admincp">Home</a></li>
+						<li class="active"><a href="admincp">Home</a></li>
 						<li class="dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">General Options <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="newsletter">Send Newsletter</a></li>
-								<li><a href="#">Page 1-2</a></li>
+								<li><a href="newannounce">Create Announce</a></li>
 								<li><a href="#">Page 1-3</a></li>
 							</ul></li>
 
